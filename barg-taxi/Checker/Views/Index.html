@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <!--<iframe id="map" width="600" height="450" frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?q=empty&key=AIzaSyBWb7yvtzkK3Tgpt_-PnWhaW2OhQ99Rv3k"></iframe>-->
+    <div id="map" style="width: 600px; height: 450px;"></div>
+    <div>
+        X:<input id="x" type="text" readonly style="background-color: lightgray"/>
+        Y:<input id="y" type="text" readonly style="background-color: lightgray" />
+        
+        <br />
+        <br />
+
+        Phone:
+        <br />
+        <input id="phone" type="text" readonly style="background-color: lightgray" />
+        <br />
+        Location:
+        <br />
+        <input id="loc" type="text" readonly style="background-color: lightgray" />
+        
+        <br />
+        <br />
+
+        Note:
+        <br />
+        <input id="note" type="text" />
+        <br />
+        <input id="ct0" type="radio" name="cartype" value="0" readonly style="background-color: lightgray" checked />Normal
+        <input id="ct1" type="radio" name="cartype" value="1" readonly style="background-color: lightgray" />Premium
+
+        <br />
+        <br />
+
+        <button id="get" type="button">Get Job</button>
+        <button id="show" type="button">Show Drivers</button>
+        <button id="finish" type="button">Finish Job</button>
+    </div>
+
+    <script src="../Scripts/jquery-1.10.2.min.js"></script>
+    <script src="../Scripts/jquery.signalR-2.0.0.min.js"></script>
+    <script src="http://localhost:26889/signalr/hubs"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBpSzFvG1pxx_Lrl5Yy9RyNZoJTomqPdEs&callback=initialize" async defer></script>
+    <script src="../Scripts/String.js"></script>
+    <script src="../Handlers/Index.js"></script>
+</body>
+</html>

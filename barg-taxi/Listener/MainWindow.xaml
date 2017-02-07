@@ -1,0 +1,31 @@
+﻿<Window x:Class="Listener.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Listener" SizeToContent="WidthAndHeight">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Phone number:" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" Margin="8,4,0,0"/>
+        <TextBox Name="phone" Grid.Row="1" FontSize="16" Margin="8,4" Width="256" BorderThickness="0,0,0,1"/>
+        <TextBlock Grid.Row="2" Text="Address:" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="16" Margin="8,4,0,0"/>
+        <TextBox Name="loc" Grid.Row="3" FontSize="16" Margin="8,4" Width="256" BorderThickness="0,0,0,1"/>
+        <DockPanel Margin="4" Grid.Row="4">
+            <RadioButton x:Name="rad_normal" GroupName="cartype" Content="Normal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4" IsChecked="True" FontSize="16" VerticalContentAlignment="Center"/>
+            <RadioButton x:Name="rad_premium" GroupName="cartype" Content="Premium" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4" FontSize="16" VerticalContentAlignment="Center"/>
+        </DockPanel>
+        <StackPanel Orientation="Horizontal" Grid.Row="7" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0">
+            <Button Content="Clear" Margin="8" Padding="4" FontSize="16" Width="64" Height="32" Click="clear"/>
+            <Button Content="Send" Margin="8" Padding="4" FontSize="16" Width="64" Height="32" Click="send"/>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Left" Margin="8,4,0,0" Grid.Row="5" TextWrapping="Wrap" Text="Note:" VerticalAlignment="Top" FontSize="16"/>
+        <TextBox Name="loc_note" Grid.Row="6" FontSize="16" Margin="8" Width="256" BorderThickness="1" TextWrapping="Wrap" Height="64"/>
+    </Grid>
+</Window>
