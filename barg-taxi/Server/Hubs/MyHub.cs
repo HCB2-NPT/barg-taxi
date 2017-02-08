@@ -30,12 +30,23 @@ namespace Server.Hubs
             }
         }
 
-        public void DriverReady(string loc, float lat, float lng, short cartype)
+        public void DriverMove(float lat, float lng)
         {
             if (DriverManager.ListDrivers.ContainsKey(Context.ConnectionId))
             {
                 var driver = DriverManager.ListDrivers[Context.ConnectionId];
-                driver.Location = loc;
+                //driver.Location = loc;
+                driver.Lat = lat;
+                driver.Lng = lng;
+            }
+        }
+
+        public void DriverReady(/*string loc, */float lat, float lng, short cartype)
+        {
+            if (DriverManager.ListDrivers.ContainsKey(Context.ConnectionId))
+            {
+                var driver = DriverManager.ListDrivers[Context.ConnectionId];
+                //driver.Location = loc;
                 driver.Lat = lat;
                 driver.Lng = lng;
                 driver.Type = cartype;
@@ -47,7 +58,8 @@ namespace Server.Hubs
         {
             if (DriverManager.ListDrivers.ContainsKey(Context.ConnectionId))
             {
-                RequestSaver.Add(cus.Phone, cus.Location, cus.Note, cus.Type);
+                Customer customer = JsonConvert.DeserializeObject<Customer>(cus.ToString());
+                RequestSaver.Add(customer.Phone, customer.Location, customer.Note, customer.Type);
             }
         }
 
@@ -58,8 +70,8 @@ namespace Server.Hubs
                 var driver = DriverManager.ListDrivers[Context.ConnectionId];
                 driver.State = 2;
                 //
-                //
-                //
+                Customer customer = JsonConvert.DeserializeObject<Customer>(cus.ToString());
+                customer.Driver = driver;
             }
         }
 

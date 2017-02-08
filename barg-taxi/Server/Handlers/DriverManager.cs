@@ -39,10 +39,10 @@ namespace Server.Handlers
         public static double GetDrivingDistanceInMiles(float originlat, float originlng, float lat, float lng)
         {
             string url = @"http://maps.googleapis.com/maps/api/distancematrix/xml?origins=" +
-              originlat + "," + originlng + "&destinations=" + lat + "," + lng +
-              "&mode=driving&sensor=false&language=en-EN&units=imperial";
+                originlat + "," + originlng + "&destinations=" + lat + "," + lng +
+                "&mode=driving&sensor=false&language=en-EN&units=imperial";
 
-           
+
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
             WebResponse response = request.GetResponse();
             Stream dataStream = response.GetResponseStream();
@@ -53,12 +53,16 @@ namespace Server.Handlers
             XmlDocument xmldoc = new XmlDocument();
             xmldoc.LoadXml(responsereader);
 
-
-            if (xmldoc.GetElementsByTagName("status")[0].ChildNodes[0].InnerText == "OK")
+            try
             {
-                XmlNodeList distance = xmldoc.GetElementsByTagName("distance");
-                return Convert.ToDouble(distance[0].ChildNodes[1].Value);
+                if (xmldoc.GetElementsByTagName("status")[0].ChildNodes[0].InnerText == "OK")
+                {
+                    XmlNodeList distance = xmldoc.GetElementsByTagName("distance");
+                    return Convert.ToDouble(distance[0].ChildNodes[1].Value);
+                }
             }
+            catch { }
+
 
             return double.MaxValue;
         }

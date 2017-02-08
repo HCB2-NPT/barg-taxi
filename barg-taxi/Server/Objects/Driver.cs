@@ -8,7 +8,7 @@ namespace Server.Objects
     public class Driver
     {
         public string ConnectionId { get; set; }
-        public string Location { get; set; }
+        //public string Location { get; set; }
         public float Lat { get; set; }
         public float Lng { get; set; }
         public short Type { get; set; }

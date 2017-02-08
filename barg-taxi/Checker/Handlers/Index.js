@@ -7,6 +7,7 @@ var directionsDisplay;
 var directionsService;
 var geocoder;
 var selectedMarker;
+var selectedDriver;
 
 //==================================================
 //  google map init
@@ -72,7 +73,7 @@ hub.client.get_done = function (customer) {
 hub.client.getDrivers = function (drivers) {
     deleteMarkers();
     if (drivers.length == 0) {
-        alert('No driver ready for now. Or near this position.');
+        //alert('No driver ready for now. Or near this position.');
     } else {
         var bounds = new google.maps.LatLngBounds();
         bounds.extend(cusMarker.getPosition());
@@ -83,6 +84,11 @@ hub.client.getDrivers = function (drivers) {
                 icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
                 driver: drivers[k]
             });
+            if (selectedDriver && selectedDriver.ConnectionId == drivers[k].ConnectionId) {
+                selectedMarker = marker;
+                selectedDriver = marker.driver;
+                selectedMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
+            }
             markers.push(marker);
             google.maps.event.addListener(marker, "click", function (event) {
                 if (confirm('Do you want to choose that driver?')) {
@@ -90,10 +96,11 @@ hub.client.getDrivers = function (drivers) {
                         selectedMarker.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
                     }
                     selectedMarker = this;
+                    selectedDriver = selectedMarker.driver;
                     this.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
                     alert('Enter \'Finish\' button to complete job.');
                 }
-            })
+            });
             bounds.extend(marker.getPosition());
             direction(marker.getPosition(), cusMarker.getPosition());
         }
@@ -112,13 +119,13 @@ $.connection.hub.start().done(function () {
             alert('You need finish current job.');
         }
     });
-    $('#show').on('click', function () {
-        hub.server.callDrivers($('#x').val(), $('#y').val(), 10000, $('input[name=cartype]:checked').val());
-    });
     $('#finish').on('click', function () {
         hub.server.push2Driver(currentCustomer, selectedMarker.driver);
         location.reload();
     });
+    setInterval(function () {
+        hub.server.callDrivers($('#x').val(), $('#y').val(), 10000, $('input[name=cartype]:checked').val());
+    }, 2000);
 });
 
 //==================================================
