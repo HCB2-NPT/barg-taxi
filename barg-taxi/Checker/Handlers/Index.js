@@ -120,8 +120,16 @@ $.connection.hub.start().done(function () {
         }
     });
     $('#finish').on('click', function () {
-        hub.server.push2Driver(currentCustomer, selectedMarker.driver);
-        location.reload();
+        if (currentCustomer && selectedDriver) {
+            hub.server.push2Driver(currentCustomer, selectedDriver);
+            location.reload();
+        } else {
+            alert('Get a customer and select driver.');
+        }
+    });
+    $('#drop').on('click', function () {
+        if (confirm('Do you want to drop the customer?'))
+            location.reload();
     });
     setInterval(function () {
         hub.server.callDrivers($('#x').val(), $('#y').val(), 10000, $('input[name=cartype]:checked').val());
